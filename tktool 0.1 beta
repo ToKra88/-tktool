@@ -1,0 +1,705 @@
+
+:: NAME: TKTool
+:: DESCRIPTION: Useful Tools for Windows with some gimmicks
+:: AUTHOR: Toshko Krastev 
+:: VERSION: TKTool 0.1 beta
+:: *****************************************************************
+
+::true beginning of this script
+:: *****************************************************************
+	:truestart
+	::Window Title
+	title TKTool 0.1 beta [RUN LOCALLY]
+	::hide the word echo in print commands
+	@echo off
+
+:: resize animation on startup
+:: *****************************************************************
+	mode con: cols=55 lines=55
+	echo  l & echo  o & echo  a & echo  d & echo  . & echo  . & echo  .
+	mode con: cols=34 lines=34
+	echo  l & echo  o & echo  a & echo  d & echo  i & echo  . & echo  . & echo  .
+	mode con: cols=21 lines=21
+	echo  l & echo  o & echo  a & echo  d & echo  i & echo  n & echo  . & echo  . & echo  .
+	mode con: cols=15 lines=13
+	cls & echo: & echo  l & echo  o & echo  a & echo  d & echo  i & echo  n & echo  g & echo  . & echo  . & echo  . & ping 127.0.0.1 -n 2 > nul
+	mode con: cols=21 lines=21
+	echo  l & echo  o & echo  a & echo  d & echo  i & echo  n & echo  . & echo  . & echo  .
+	mode con: cols=34 lines=34
+	echo  l & echo  o & echo  a & echo  d & echo  i & echo  . & echo  . & echo  .
+	mode con: cols=55 lines=55
+	echo  l & echo  o & echo  a & echo  d & echo  . & echo  . & echo  .
+	cls
+
+:: Checking if running as Administrator 
+:: *****************************************************************
+	:admincheck
+	::openfiles is just one function that requires admin privs, you can use another
+	openfiles>nul 2>nul
+	:: the error level can be exploited to give you a do this if it works / do this if it fails functionality
+	if %errorlevel% == 0 echo Running as Admin! & ping 127.0.0.1 -n 2 > nul & goto start
+	if %errorlevel% neq 0 (
+	echo:
+	echo:
+	echo note: Checking for Administrator elevation.
+	ping 127.0.0.1 -n 1 > nul
+	echo:
+	echo:
+	echo ______________________________________________________
+	ping 127.0.0.1 -n 1 > nul
+	echo:
+	ping 127.0.0.1 -n 1 > nul
+	echo    You are not running this as an Administrator.
+	ping 127.0.0.1 -n 1 > nul
+	echo    Some functions of this tool will not work.
+	echo:
+	ping 127.0.0.1 -n 1 > nul
+	echo ______________________________________________________
+	echo:
+	echo:
+	echo:
+	pause
+	goto :start 
+	)
+
+::second beginning of this script
+:: *****************************************************************
+	:start
+	::Window Title
+	title TKTool 0.1 beta [RUN LOCALLY]
+	::hide the word echo in print commands
+	@echo off
+	::set window size
+	mode con: cols=62 lines=53
+	::set font and background color
+	::black bg dark blue text
+	color 01
+
+
+
+
+
+
+:: MENU **************************************************************
+
+	::pings used for scroll animation
+	echo Running as %username% on %computername% at %time%
+	ping 127.0.0.1 -n 1 > nul
+	echo:
+	ping 127.0.0.1 -n 1 > nul
+	echo __Programs___________________________________________________
+	ping 127.0.0.1 -n 1 > nul
+	echo  1/ 3d equalizer 4R4 64bit 	1x/ PureRef
+	ping 127.0.0.1 -n 1 > nul
+	echo  2/ afterFX CC (launcher)	2x/ (without launcher)
+	ping 127.0.0.1 -n 1 > nul
+	echo  3/ maya 2015  (launcher)	3x/ (without launcher)
+	ping 127.0.0.1 -n 1 > nul
+	echo  4/ maya 2016  (launcher)	4x/ (without launcher)
+	ping 127.0.0.1 -n 1 > nul
+	echo  5/ snipping tool		6 / nukeX 9.0v05
+	ping 127.0.0.1 -n 1 > nul
+	echo  7/ PFTrack 2014.2		8 / photoshop CC 64bit 
+	ping 127.0.0.1 -n 1 > nul
+	echo  9/ premiere CC			10/ rv
+	ping 127.0.0.1 -n 1 > nul
+	echo 11/ sublime editor		11x/ sublime editor portable
+	ping 127.0.0.1 -n 1 > nul
+	echo 12/ zbrush 4R7 FL 32bit		12x/ zbrush 4R7 FL 64bit
+	ping 127.0.0.1 -n 1 > nul
+	echo:
+	ping 127.0.0.1 -n 1 > nul
+	echo __Tools______________________________________________________
+	ping 127.0.0.1 -n 1 > nul
+	echo 20/ device manager		21 / devices and printers
+	ping 127.0.0.1 -n 1 > nul
+	echo 22/ MAP X [Local]		23 / MAP X [project]
+	ping 127.0.0.1 -n 1 > nul
+	echo 24/ get MAC address		25 / ipconfig
+	ping 127.0.0.1 -n 1 > nul
+	echo 26/ restart explorer		27r/ FORCE PC RESTART in 10s
+	ping 127.0.0.1 -n 1 > nul
+	echo 28/ gpresult in notepad		29 / ABORT restart/shutdown
+	ping 127.0.0.1 -n 1 > nul
+	echo 30/ task manager		31 / ProcessExplorer
+	ping 127.0.0.1 -n 1 > nul
+	echo 32/ set proxy.pac		32x/ remove proxy.pac
+	ping 127.0.0.1 -n 1 > nul
+	echo 33/ system Info (simple)	34 / msinfo32 (detailed)
+	ping 127.0.0.1 -n 1 > nul
+	echo 35/ mouse options		36 / wacom tablet settings
+	ping 127.0.0.1 -n 1 > nul
+	echo 37/ hibernate OFF [admin]	37x/ hibernate ON [admin]
+	ping 127.0.0.1 -n 1 > nul
+	echo hosts/ 		[admin]		aescripts/ 	[admin]
+	ping 127.0.0.1 -n 1 > nul
+	echo enableUSB/ 	[admin]		disableUSB/ 	[admin]
+	ping 127.0.0.1 -n 1 > nul
+	echo:
+	ping 127.0.0.1 -n 1 > nul
+		:: THIS ASSUMES YOU HAVE X drive MAPPED
+		echo:
+	echo __Migrate_Maya_2015_and_2016_Prefs____MAP_X_FIRST_____________
+	ping 127.0.0.1 -n 1 > nul
+	echo backup/		(upload local prefs to your network )
+	ping 127.0.0.1 -n 1 > nul
+	echo retrieve/	(download stored prefs to local disk)
+	echo:
+	ping 127.0.0.1 -n 1 > nul
+	echo:
+	ping 127.0.0.1 -n 1 > nul
+	::brighten1 black bg blue text
+	color 09
+	echo __Other______________________________________________________
+	ping 127.0.0.1 -n 1 > nul
+	echo cpuZ/ gpuZ/ hwmonitor/ speedfan/ RAMMAP/ OS/ Power/
+	ping 127.0.0.1 -n 1 > nul
+	::brighten2 black bg teal text
+	color 03
+	echo 88/ spp [admin] 		89/ delete temp files
+	ping 127.0.0.1 -n 1 > nul
+	echo 99/ autostart [current user]	99x/ autostart [all users]
+	ping 127.0.0.1 -n 1 > nul
+	echo showfileextensions/		100/ restart printer spooler
+	ping 127.0.0.1 -n 1 > nul
+	echo _____________________________________________________________
+	ping 127.0.0.1 -n 1 > nul
+	
+	echo:
+	::end of body of text
+	::set static color black bg white text
+	color 07
+	::delay before Launch command text
+	ping 127.0.0.1 -n 2 > nul
+
+:: END OF MENU ********************************************************
+
+
+::**************setting "OPTION" as a variable ************************
+	echo:
+	set /p OPTION=Type a number or word preceeding / sign: 
+
+::**************program halts here awating user input *****************
+
+
+
+
+:: *****************************************************************
+:continue
+
+	echo:
+	echo   your entry: %OPTION%
+	ping 127.0.0.1 -n 2 > nul
+	echo:
+	::if OPTION is a space or double space
+	if "%OPTION%"==" " echo you entered a space... resetting & ping 127.0.0.1 -n 3 > nul & goto start
+	if "%OPTION%"=="  " echo you entered a double space! ...resetting & ping 127.0.0.1 -n 3 > nul & goto start
+
+::maya preferences - YOU HAVE TO SET X FIRST USING OPTIONS 22 or 23
+:: *****************************************************************
+	::backup to X: and create folders if not existing
+		if %OPTION%==backup echo This will MIRROR the contents of both LOCAL folders: & echo: & echo %userprofile%\Documents\Maya\2015-x64\prefs & echo %userprofile%\Documents\Maya\2016\prefs & echo: & echo to these NETWORK destination folders: & echo: & echo X:\personal\%username%\tktool\2015-x64\prefs & echo X:\personal\%username%\tktool\2016\prefs & echo: & echo Do you wish to proceed? & pause & robocopy %userprofile%\documents\maya\2015-x64\prefs X:\personal\%username%\tktool\2015-x64\prefs /mir /r:1 /w:5 /NFL /NDL /NJH /NJS /nc /ns /np & robocopy %userprofile%\documents\maya\2016\prefs X:\%username%\tktool\2016\prefs /mir /r:1 /w:5 /NFL /NDL /NJH /NJS /nc /ns /np & ping 127.0.0.1 -n 3 > nul & echo: & echo: MIRRORING Maya Prefs from LOCAL to NETWORK finished... & echo: & timeout /t 3 /nobreak & pause & cls & goto start
+
+	::retrieve from X: and create folders if not existing
+		if %OPTION%==retrieve echo This will MIRROR the contents of both NETWORK folders: & echo: & echo X:\personal\%username%\tktool\2015-x64\prefs & echo X:\personal\%username%\tktool\2016\prefs & echo: & echo to these LOCAL destination folders: & echo: & echo %userprofile%\Documents\Maya\2015-x64\prefs & echo %userprofile%\Documents\Maya\2016\prefs & echo: & echo Do you wish to proceed? & pause & robocopy X:\personal\%username%\tktool\2015-x64\prefs %userprofile%\documents\maya\2015-x64\prefs /mir /r:1 /w:5 /NFL /NDL /NJH /NJS /nc /ns /np & robocopy X:\personal\%username%\tktool\2016\prefs %userprofile%\documents\maya\2016\prefs /mir /r:1 /w:5 /NFL /NDL /NJH /NJS /nc /ns /np & ping 127.0.0.1 -n 3 > nul & echo: & echo MIRRORING Maya Prefs from NETWORK to LOCAL finished... & echo: & timeout /t 3 /nobreak & pause & cls & goto start
+
+::pipeline launchers
+:: *****************************************************************
+	if %OPTION%==2 call X:\launcher\bat\ae\AfterEffects.bat
+	if %OPTION%==3 call X:\launcher\bat\maya\Maya2015.bat
+	if %OPTION%==4 call X:\launcher\bat\maya\Maya2016.bat
+	if %OPTION%==6x call X:\launcher\bat\nuke\Nuke.bat
+
+::programs
+:: *****************************************************************
+	::get 3de4r4 program from X:\Resources and copy to userprofile and run from there
+	if %OPTION%==1 echo Copying 3D equalizer to local disk... PLEASE WAIT & robocopy "X:\Resources\SOFTWARE_TOOLS\3d Equalizer 4 R4\3DE 4 R4 for windows x64" %userprofile% /e /j /eta /njh /nfl /ndl /xc /xn /xo /r:1 /w:5 & timeout /t 3 /nobreak & echo starting 3de4.exe & timeout /t 4 /nobreak & start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=35 & color 0b & start %userprofile%\3DE4_win64_r4\bin\3de4.exe & timeout /t 5 & exit" & goto start
+	::normal launch below programs
+	if %OPTION%==2x call "%PROGRAMFILES%\Adobe\Adobe After Effects CC\Support Files\afterfx.exe"
+	if %OPTION%==3x cd "%PROGRAMFILES%\Autodesk\Maya2015\bin\" & start maya.exe
+	if %OPTION%==4x cd "%PROGRAMFILES%\Autodesk\Maya2016\bin\" & start maya.exe
+	if %OPTION%==5 start %windir%\system32\SnippingTool.exe & ping 127.0.0.1 -n 2 > nul & goto start
+	if %OPTION%==6 start cmd.exe @cmd /k "mode con: cols=61 lines=20 & call "%PROGRAMFILES%\Nuke9.0v5\Nuke9.0.exe" --nukex" && echo IF PATH NOT FOUND Nuke 9.0v05 IS NOT INSTALLED! & pause & goto start
+	if %OPTION%==7 start cmd.exe /b @cmd /k "mode con: cols=61 lines=20 & call "%PROGRAMFILES%\The Pixel Farm\PFTrack 2014.2\pftrack.exe"" && echo IF PATH NOT FOUND PFTrack 2014.2 IS NOT INSTALLED! & pause & goto start
+	if %OPTION%==8 echo STARTING PHOTOSHOP, please wait... & start photoshop.exe & timeout /t 10 & goto start
+	if %OPTION%==9 echo STARTING PREMIERE, please wait...& call "%ProgramFiles%\Adobe\Adobe Premiere Pro CC\Adobe Premiere Pro.exe"
+	::start rv from X drive
+	if %OPTION%==10 start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=60 lines=10 & color 08 & echo STARTING RV - KEEP WINDOW OPEN & echo: & call X:\Resources\SOFTWARE_TOOLS\rv\bin\rv.exe"
+	::start sublime if installed
+	if %OPTION%==11 start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=5 & color 0b & echo starting sublime editor... please wait & echo: & echo you can close this window after it starts & call "%PROGRAMFILES%\Sublime Text 3\sublime_text.exe"" && echo IF PATH NOT FOUND Sublime IS NOT INSTALLED & echo RUN THE PORTABLE VERSION using (11x)! & pause & goto start
+	::get sublime portable from X:\Resources copy to userprofile and start from there
+	if %OPTION%==11x start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=10 & color 0b & echo DOWNLOADING SUBLIME PORTABLE FROM X:\Resources & robocopy "X:\Resources\SOFTWARE_TOOLS\Sublime Text Build 3126 x64" "%userprofile%\Sublime Text Build 3126 x64" /e /j /njh /njs /nfl /ndl /xc /xn /xo /r:1 /w:5 & timeout /t 3 & echo STARTING SUBLIME PORTABLE... & cd "%userprofile%\Sublime Text Build 3126 x64\" & start sublime_text.exe "hey! this is a portable version of Sublime 3 x64 build 3126" & timeout /t 5 & exit"
+	::zbrush
+	if %OPTION%==12 start cmd.exe /b @cmd /k "mode con: cols=61 lines=20 & echo starting zbrush 32bit... please wait & call "%PROGRAMFILES(X86)%\Pixologic\ZBrush 4R7 FL\zbrush.exe" & exit"
+	if %OPTION%==12x start cmd.exe /b @cmd /k "mode con: cols=61 lines=20 & echo starting zbrush 64bit... please wait & call "%PROGRAMFILES(X86)%\Pixologic\ZBrush 4R7 FL\zbrush64.exe" & exit"
+
+::tools
+:: *****************************************************************
+	::device manager
+	if %OPTION%==20 set devmgr_show_nonpresent_devices=1 & start devmgmt.msc & ping 127.0.0.1 -n 2 > nul & goto start
+	::devices and printers
+	if %OPTION%==21 start control printers & ping 127.0.0.1 -n 2 > nul & goto start
+	::remap x and j for 127.0.0.1
+	if %OPTION%==22 start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=35 & color 0b & echo [J BEING REMOVED] & timeout /t 3 /nobreak & net use J: /delete /yes & echo: & echo: & echo [X BEING REMOVED] & timeout /t 3 /nobreak & net use X: /delete /yes & echo: & echo: & echo [J BEING ADDED AS \\127.0.0.1] & timeout /t 4 /nobreak & net use J: \\127.0.0.1 /PERSISTENT:YES & echo: & echo: & echo [X BEING ADDED AS \\127.0.0.1\resources\] & timeout /t 4 /nobreak & net use X: \\127.0.0.1\Resources /PERSISTENT:YES & echo: & echo: & echo - DONE - [ J AND X MAPPED] & echo: & echo done ... & echo: & timeout /t 11 /nobreak & exit" & echo: & echo [ J and X are being re-added... ] & echo: & timeout /t 28 /nobreak & goto start
+	::remap secure show shows and resources drives
+	if %OPTION%==23 goto projects
+	::getmac
+	if %OPTION%==24 mode con: cols=80 lines=30 & echo [ tktool ]  beta & echo: & echo displaying mac (media access control) addresses... & getmac & echo: & echo: & echo [ press any key to go back to menu ] & echo: & echo:
+	::ipconfig
+	if %OPTION%==25 mode con: cols=80 lines=60 & echo [ tktool ]  beta & ipconfig & echo: & echo [ press any key to go back to menu ] & echo: & echo:
+	:: restart explorer.exe
+	if %OPTION%==26 taskkill /im explorer.exe /f & timeout /t 5 /nobreak & start explorer.exe & echo [ Success! explorer.exe restarted ]
+	::force restart in 15 seconds (10 seconds from user perspective to allow cancellation)
+	if %OPTION%==27r shutdown /f /r /t 15
+	::get group policy applied to computer and display in notepad
+	if %OPTION%==28 start cmd.exe /b @cmd /k "mode con: cols=40 lines=5 & echo this will close when notepad is closed & ping 127.0.0.1 -n 4 > nul& gpresult /r >%computername%_group_policy.txt & notepad %computername%_group_policy.txt & exit"
+	::ABORT shutdown / restart of computer
+	if %OPTION%==29 shutdown.exe -a
+	::start task manager
+	if %OPTION%==30 start taskmgr & ping 127.0.0.1 -n 3 > nul & goto start
+	::get processexplorer from network X:\Resources and launch from userprofile folder
+	if %OPTION%==31 start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=10 & color 0b & echo STARTING SysInternals PROCESS EXPLORER & robocopy "X:\Resources\SOFTWARE_TOOLS\ProcessExplorer" "%userprofile%\ProcessExplorer" /e /j /njh /njs /nfl /ndl /r:1 /w:5 & timeout /t 3 & echo starting process explorer & cd %userprofile%\ProcessExplorer\ & start procexp.exe & timeout /t 3 & exit"
+	::proxy via GUI, not needed to be honest
+	if %OPTION%==32gui mode con: cols=61 lines=30 & mode con: cols=61 lines=25 & cls & color 0b & echo: & echo: & echo ============================================= & echo: & echo INSTRUCTIONS: & echo Click on LAN settings, & echo: & echo then tick the box next to & echo 'Use automatic configuration script' & echo: & echo and next to 'Address' enter: & echo: & echo http://proxy/proxy.pac & echo: & echo Now click OK, then OK again & echo: & echo ============================================= & ping 127.0.0.1 -n 5 > nul & start rundll32.exe shell32.dll,Control_RunDLL inetcpl.cpl,,4
+	::set proxy via registry
+	if %OPTION%==32 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v AutoConfigURL /t REG_SZ /d http://proxy/proxy.pac /f & reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" /v DefaultConnectionSettings /t REG_BINARY /d "460000000300000005000000000000000000000016000000687474703a2f2f70726f78792f70726f78792e706163000000000000000000000000000000000000" /f & reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" /v SavedLegacySettings /t REG_BINARY /d "460000000300000005000000000000000000000016000000687474703a2f2f70726f78792f70726f78792e706163000000000000000000000000000000000000" /f
+	::remove proxy via registry
+	if %OPTION%==32x reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v AutoConfigURL /f & reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" /v DefaultConnectionSettings /t REG_BINARY /d "460000000600000009000000000000000000000016000000687474703a2f2f70726f78792f70726f78792e706163000000000000000000000000000000000000" /f & reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" /v SavedLegacySettings /t REG_BINARY /d "460000000900000009000000000000000000000016000000687474703a2f2f70726f78792f70726f78792e706163000000000000000000000000000000000000" /f
+	::go to system window (windows key plus printscreen)
+	if %OPTION%==33 start control /name Microsoft.System & ping 127.0.0.1 -n 3 > nul & goto start
+	::start msinfo32
+	if %OPTION%==34 start msinfo32 & ping 127.0.0.1 -n 3 > nul & goto start
+	::mouse options, wonder why its called MAIN.cpl, maybe its a legacy thing and the mouse options were the first .cpl item created
+	if %OPTION%==35 start main.cpl & ping 127.0.0.1 -n 3 > nul & goto start
+	::start WACOM tablet properties, requires wacom to be plugged into PC
+	if %OPTION%==36 cd "%PROGRAMFILES%\Tablet\Wacom\" & start professional_cpl.exe & ping 127.0.0.1 -n 4 > nul & goto start
+	::CHECKLIST REPORT - WORK IN PROGRESS -
+	if %OPTION%==37 echo this will check your pc for missing software but it will take a lot of work to get done... in progress...
+	::HELP - work in PROGRESS
+	if %OPTION%==help echo help section coming soon
+	::change hosts file (kaspersky must be paused and only admin users can run this)
+	if %OPTION%==hosts cls & mode con: cols=79 lines=46 & echo THIS IS THE HOSTS FILE [BEFORE] ANY EDITS ARE MADE & echo %windir%\system32\drivers\etc\hosts at %time% on %date% & echo ______________________________________________________________________________/ & type %windir%\system32\drivers\etc\hosts & echo: & echo: & echo ______________________________________________________________________________/ & echo  type word: addhosts [to add Project Servers and InputOutputPCs to hosts file] & echo  or type word: reset [to go back to main menu...] & echo  or type word: clearhosts [to clear all entries] & echo _____* PAUSE/DISABLE AV SOFTWARE AS THIS PROTECTS THE HOSTS FILE * & set /p OPTION=_______________/Enter OPTION to proceed:  & ping 127.0.0.1 -n 2 > nul & timeout /t 5
+		if %OPTION%==addhosts goto addhosts
+		if %OPTION%==clearhosts goto clearhosts
+	
+	::restart all network adaptors on computer (NOT WORKING YET)
+	:: *****************************************************************
+	if %OPTION%==netreset timeout /t 3 & cls & mode con: cols=76 lines=46 & cls & echo ALL NETWORK INTERFACES ON %computername%: & echo _________________________________________________________________________ & netsh interface show interface & echo _________________________________________________________________________ & echo Above are your network cards. Do you want to reset them all? & echo: & echo: & echo If YES type netresetY, if NO type reset & echo: & set /p OPTION=_______________/Enter OPTION to proceed:  & ping 127.0.0.1 -n 2 > nul & timeout /t 5
+		if %OPTION%==netresetY ipconfig /release & ipconfig /flushdns & netsh interface set interface "*" DISABLED & timeout /t 10 /nobreak & netsh interface set interface "*" ENABLED & ipconfig /renew & echo done & pause
+
+
+::sites
+:: *****************************************************************
+
+	if %OPTION%==42 echo Launching Chrome with google.com & start chrome google.com
+	if %OPTION%==43 echo Launching Firefox with firefox.com & start firefox firefox.xom
+
+
+::extra
+:: *****************************************************************
+	if %OPTION%==exit echo: & echo Exiting tktool 0.1 beta & timeout /t 3 & goto dramaticdeath
+	if %OPTION%==notepad start notepad & goto start
+	if %OPTION%==mspaint echo starting mspaint & start mspaint
+	if %OPTION%==calc echo starting the calculator & start calc
+	if %OPTION%==resolution echo starting Screen Resolution Properties & start desk.cpl
+	if %OPTION%==maddox start chrome maddox.xmission.com
+	if %OPTION%==experiments start chrome www.chromeexperiments.com
+	if %OPTION%==scout cls & echo: & echo: & echo Status: Initializing (Scout is the name of an office dog) & echo: & echo Scout: eat random stuff in office program initiated ... & echo: & echo: & echo: & echo: & echo Scout: searching through bins and under desks ... & timeout /t 3 & echo: & echo: & echo: & echo: & echo Scout: Found something! & echo: & echo Scout: ripping up, chewing and digesting ... & echo: & timeout /t 5 & echo: & echo: & echo: & echo: & echo Scout: commencing pooping protocol ... & echo: & timeout /t 3 & echo: & echo: & echo: & echo Status: program complete & echo: & echo Scout: partial matter conversion of office successful...  & echo: & echo: & timeout /t 15 & cls & goto start
+	if %OPTION%==lucky echo Your lucky number right now is %random%
+	if %OPTION%==batlocation echo %cmdcmdline%
+	if %OPTION%==showfileextensions reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v HideFileExt /t REG_DWORD /d 0 /f
+	if %OPTION%==reset goto start
+	if %OPTION%==fullreset goto truestart
+	if %OPTION%==music start chrome https://soundcloud.com/hirschmilch/mitschi-new-year-special-2014
+	::launch as admin and type aescripts to set after effecs script folder modify access for users
+	if %OPTION%==aescripts icacls "%programfiles%\Adobe\Adobe After Effects CC\Support Files\Scripts" /grant Users:(OI)(CI)F
+	::hwmonitor and speedfan
+	if %OPTION%==hwmonitor start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=10 & color 0b & echo DOWNLOADING HWMonitor FROM X:\Resources & robocopy "X:\Resources\SOFTWARE_TOOLS\HWMonitor" "%userprofile%\HWMonitor" /e /j /njh /njs /nfl /ndl /xc /xn /xo /r:1 /w:5 & timeout /t 3 & echo STARTING HWMONITOR... & cd "%userprofile%\HWMonitor\" & start HWMonitor_x32.exe"" & timeout /t 5 & exit"
+	if %OPTION%==speedfan start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=10 & color 0b & echo DOWNLOADING SpeedFan FROM X:\Resources & robocopy "X:\Resources\SOFTWARE_TOOLS\SpeedFan" "%userprofile%\SpeedFan" /e /j /njh /njs /nfl /ndl /xc /xn /xo /r:1 /w:5 & timeout /t 3 & echo STARTING SPEEDFAN... & cd "%userprofile%\SpeedFan\" & start speedfan.exe"" & timeout /t 5 & exit"
+	::pureref, cpuz and gpuz
+	if %OPTION%==1x start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=10 & color 0b & echo DOWNLOADING PureRef FROM X:\Resources & robocopy "X:\Resources\SOFTWARE_TOOLS\PureRef" "%userprofile%\PureRef" /e /j /njh /njs /nfl /ndl /xc /xn /xo /r:1 /w:5 & timeout /t 3 & echo STARTING PureRef... & cd "%userprofile%\PureRef\" & start PureRef.exe"" & timeout /t 5 & exit"
+	if %OPTION%==cpuz start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=10 & color 0b & echo DOWNLOADING CPUZ FROM X:\Resources & robocopy "X:\Resources\SOFTWARE_TOOLS\CPUZ" "%userprofile%\CPUZ" /e /j /njh /njs /nfl /ndl /xc /xn /xo /r:1 /w:5 & timeout /t 3 & echo STARTING CPUZ... & cd "%userprofile%\CPUZ\" & start cpuz_x64.exe"" & timeout /t 5 & exit"
+	if %OPTION%==gpuz start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=10 & color 0b & echo DOWNLOADING GPUZ FROM X:\Resources & robocopy "X:\Resources\SOFTWARE_TOOLS\GPUZ" "%userprofile%\GPUZ" /e /j /njh /njs /nfl /ndl /xc /xn /xo /r:1 /w:5 & timeout /t 3 & echo STARTING GPUZ... & cd "%userprofile%\GPUZ\" & start GPU-Z.1.16.0.exe"" & timeout /t 5 & exit"
+	if %OPTION%==softwarepack robocopy X:\Resources\softwarepack %userprofile%\desktop\softwarepack\
+	if %OPTION%==killmaya taskkill /im maya.exe
+	::RAMMAP
+	if %OPTION%==rammap start cmd.exe /b @cmd /k "@echo off & cls & mode con: cols=49 lines=10 & color 0b & echo DOWNLOADING RAMMAP FROM X:\Resources & robocopy "X:\Resources\SOFTWARE_TOOLS\RAMMap" "%userprofile%\RAMMap" /e /j /njh /njs /nfl /ndl /xc /xn /xo /r:1 /w:5 & timeout /t 3 & echo STARTING RAMMAP... & cd "%userprofile%\RAMMap\" & start RAMMap.exe"" & timeout /t 5 & exit"
+	if %OPTION%==os systeminfo | findstr /B /C "OS"
+	::enable or disable ALL REMOVABLE STORAGE DEVICES
+	if %OPTION%==enableusb goto enableusb
+	if %OPTION%==enableUSB goto enableusb
+	if %OPTION%==disableusb goto disableusb
+	if %OPTION%==disableUSB goto disableusb
+	if %OPTION% equ 37 powercfg -h off
+	if %OPTION% equ 37x powercfg -h on
+	if %OPTION% equ power powercfg.cpl
+	if %OPTION% equ 88 start systempropertiesprotection
+	if %OPTION% ==89 goto deltempfiles
+	if %option%==99 goto autostartupcurrentuser
+	if %OPTION%==99x goto autostartupallusers
+	if %option%==100 goto spool
+
+
+
+
+
+
+
+::useless stuff
+:: *****************************************************************
+	::error message if incorrect input (not working properly yet as requires ability to compare entry against valid OPTIONs and display output if they dont match)
+	::echo Analysis: Hmmm... "%OPTION%" is not valid, type a number: i.e. 6 for nuke or word i.e. help for command list
+
+::reset by going back to start at the top to allow user to input new task
+:: *****************************************************************
+	pause & ping 127.0.0.1 -n 2 > nul & cls & goto start
+
+::add server and inputoutputPC entries to hosts file and add who did it and when info
+:: *****************************************************************
+	:addhosts
+	echo # Last Edited by %username% on %computername% at %time%, %date% > %windir%\system32\drivers\etc\hosts
+	echo # This is a sample HOSTS file used by Microsoft TCP/IP for Windows. >> %windir%\system32\drivers\etc\hosts
+	echo # This file contains the mappings of IP addresses to host names. Each >> %windir%\system32\drivers\etc\hosts
+	echo # entry should be kept on an individual line. The IP address should >> %windir%\system32\drivers\etc\hosts
+	echo # be placed in the first column followed by the corresponding host name. >> %windir%\system32\drivers\etc\hosts
+	echo # The IP address and the host name should be separated by at least one >> %windir%\system32\drivers\etc\hosts
+	echo # space. >> %windir%\system32\drivers\etc\hosts
+	echo # Additionally, comments (such as these) may be inserted on individual >> %windir%\system32\drivers\etc\hosts
+	echo # lines or following the machine name denoted by a '#' symbol. >> %windir%\system32\drivers\etc\hosts
+	echo # For example: >> %windir%\system32\drivers\etc\hosts
+	echo #      102.54.94.97     rhino.acme.com          # source server >> %windir%\system32\drivers\etc\hosts
+	echo #       38.25.63.10     x.acme.com              # x client host >> %windir%\system32\drivers\etc\hosts
+	echo # localhost name resolution is handled within DNS itself. >> %windir%\system32\drivers\etc\hosts
+	echo #	127.0.0.1       localhost >> %windir%\system32\drivers\etc\hosts
+	echo #	::1             localhost >> %windir%\system32\drivers\etc\hosts
+
+	echo # __________servers__________________________ >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.1.100 	server1		#project1 >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.2.100 	server2		#project2 >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.3.100 	server3		#project3 >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.4.100 	server4		#project4 >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.5.100 	server5		#project5 >> %windir%\system32\drivers\etc\hosts
+
+	echo # __________input_output_PCs_________________ >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.1.101 	InputOutputPC1		#project1 >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.2.101 	InputOutputPC2		#project2 >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.3.101 	InputOutputPC3		#project3 >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.4.101 	InputOutputPC4		#project4 >> %windir%\system32\drivers\etc\hosts
+	echo 10.100.5.101 	InputOutputPC5		#project5 >> %windir%\system32\drivers\etc\hosts
+
+	ipconfig /flushdns & timeout /t 5 & cls & echo EDITS TO HOST FILE COMPLETE & echo %windir%\system32\drivers\etc\hosts at %time% on %date%  & echo ____________________________________________________________________________/ & type %windir%\system32\drivers\etc\hosts & echo: & echo: & echo ipconfig flushdns done. overall done. & echo: & pause & goto start
+
+::the windows hosts file is normally empty as it uses the gateway's dns server, but otherwise it is at highest dns priority
+	::the below cleares all custom dns entries from hosts, but leaves a few comments for convenience (better than clearing completely)
+	::also adds who did it and when info
+	:clearhosts
+	echo # Last Edited by %username% on %computername% at %time%, %date% > %windir%\system32\drivers\etc\hosts
+	echo # This is a sample HOSTS file used by Microsoft TCP/IP for Windows. >> %windir%\system32\drivers\etc\hosts
+	echo # This file contains the mappings of IP addresses to host names. Each >> %windir%\system32\drivers\etc\hosts
+	echo # entry should be kept on an individual line. The IP address should >> %windir%\system32\drivers\etc\hosts
+	echo # be placed in the first column followed by the corresponding host name. >> %windir%\system32\drivers\etc\hosts
+	echo # The IP address and the host name should be separated by at least one >> %windir%\system32\drivers\etc\hosts
+	echo # space. >> %windir%\system32\drivers\etc\hosts
+	echo # Additionally, comments (such as these) may be inserted on individual >> %windir%\system32\drivers\etc\hosts
+	echo # lines or following the machine name denoted by a '#' symbol. >> %windir%\system32\drivers\etc\hosts
+	echo # For example: >> %windir%\system32\drivers\etc\hosts
+	echo #      102.54.94.97     rhino.acme.com          # source server >> %windir%\system32\drivers\etc\hosts
+	echo #       38.25.63.10     x.acme.com              # x client host >> %windir%\system32\drivers\etc\hosts
+	echo # localhost name resolution is handled within DNS itself. >> %windir%\system32\drivers\etc\hosts
+	echo #	127.0.0.1       localhost >> %windir%\system32\drivers\etc\hosts
+	echo #	::1             localhost >> %windir%\system32\drivers\etc\hosts
+	echo # hosts cleared by %username% on %computername% at %time%, %date% >> %windir%\system32\drivers\etc\hosts
+	echo # end of hosts file on %computername% >> %windir%\system32\drivers\etc\hosts
+	ipconfig /flushdns & timeout /t 5 & cls & echo CLEARED THE HOSTS FILE & echo %windir%\system32\drivers\etc\hosts at %time% on %date%  & echo ____________________________________________________________________________/ & type %windir%\system32\drivers\etc\hosts & echo: & echo: & echo ipconfig flushdns done. overall done. & echo: & pause & goto start
+
+::dramatic death effect
+:: *****************************************************************
+	:dramaticdeath
+	cls
+	mode con: cols=61 lines=45
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=41 lines=34
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=21 lines=17
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=15 lines=7
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=17 lines=3 & echo  aaah!
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=15 lines=4 & echo aaah!
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=17 lines=3 & echo  help me!
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=18 lines=5 & echo   help me!
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=50 lines=3 & echo  i die...
+	ping 127.0.0.1 -n 1 > nul
+	mode con: cols=15 lines=3 & cls & echo i die...
+	ping 127.0.0.1 -n 2 > nul
+	exit
+
+
+
+::secure show drive mappings
+:: *****************************************************************
+	:projects
+
+	cls
+	echo: please type the name of your project as appears below:
+	echo project1
+	echo project2
+	echo project3
+	echo project4
+	echo project5
+	echo:
+	echo type word: reset to exit this menu
+	set /p OPTION=Name of project: 
+	echo:
+	echo   your entry: %OPTION%
+	ping 127.0.0.1 -n 2 > nul
+	echo:
+
+
+	::if show is ____ then go to _____ to map correct network drives
+	if %OPTION%==project1 goto project1
+	if %OPTION%==project2 goto project2
+	if %OPTION%==project3 goto project3
+	if %OPTION%==project4 goto project4
+	if %OPTION%==project5 goto project5
+	if %OPTION%==" " goto start
+	if %OPTION%==reset goto start
+
+echo I didnt understand that..... & ping 127.0.0.1 -n 3 > nul & goto start
+
+	:project1
+		::project1 network drives [W, X, Y]
+		::delete drives
+		net use J: /delete /yes
+		net use W: /delete /yes
+		net use X: /delete /yes
+		net use Y: /delete /yes
+
+		::set project as W
+		net use W: \\10.100.1.100\project1\ /PERSISTENT:YES
+		::set resources as X
+		net use X: \\10.100.1.100\resources1\ /PERSISTENT:YES
+		::set inputoutputPC as Y
+		net use Y: \\10.100.1.101 /PERSISTENT:YES
+
+		echo done & timeout /t 5 & goto start
+
+	
+	:project2
+		::project2, network drives [O, X, Y]
+		::delete drives
+		net use J: /delete /yes
+		net use O: /delete /yes
+		net use X: /delete /yes
+		net use Y: /delete /yes
+
+		::set project as O
+		net use O: \\10.100.2.100\project2\ /PERSISTENT:YES
+		::set resources as X
+		net use X: \\10.100.2.100\Resources2\ /PERSISTENT:YES
+		::set inputoutputPC as Y
+		net use Y: \\10.100.2.101 /PERSISTENT:YES
+
+		echo done & timeout /t 5 & goto start
+
+
+	:project3
+		::project3 network drives [R, X, Y]
+		::delete drives
+		net use J: /delete /yes
+		net use R: /delete /yes
+		net use X: /delete /yes
+		net use Y: /delete /yes
+
+		::set project as R
+		net use R: \\10.100.3.100\project3\ /PERSISTENT:YES
+		::set resources as X
+		net use X: \\10.100.3.100\Resources3\ /PERSISTENT:YES
+		::set inputoutputPC as Y
+		net use Y: \\10.100.3.101 /PERSISTENT:YES
+
+		echo done & timeout /t 5 & goto start
+
+
+	:project4
+		::project4 network drives [M, X, Y]
+		::delete drives
+		net use J: /delete /yes
+		net use M: /delete /yes
+		net use X: /delete /yes
+		net use Y: /delete /yes
+
+		::set project as M
+		net use M: \\10.100.4.100\project4\ /PERSISTENT:YES
+		::set resources as X
+		net use X: \\10.100.4.100\resources4\ /PERSISTENT:YES
+		::set inputoutputPC as Y
+		net use Y: \\10.100.4.101 /PERSISTENT:YES
+
+		echo done & timeout /t 5 & goto start
+
+
+	:project5
+		::project5 network drives [L, X, Y]
+		::delete drives
+		net use J: /delete /yes
+		net use M: /delete /yes
+		net use X: /delete /yes
+		net use Y: /delete /yes
+
+		::set project as L
+		net use S: \\10.100.5.100\project5\ /PERSISTENT:YES
+		::set resources as X
+		net use X: \\10.100.5.100\resources5\ /PERSISTENT:YES
+		::set inputoutputPC as Y
+		net use Y: \\10.100.5.101 /PERSISTENT:YES
+
+		echo done & timeout /t 5 & goto start
+
+		::end of server and inputoutputPC drive mappings
+
+
+::enable removableStorageDevices via registry [this requires admin elevation]
+:: *****************************************************************
+:enableusb
+echo enable usb [make sure youre running this as admin] & pause
+
+	reg add HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\USBSTOR /v start /t REG_DWORD /d 3 /f
+
+	reg add "HKLM\software\policies\microsoft\windows\removableStorageDevices" /v Deny_All /t REG_DWORD /d 0 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_execute /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_read /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_write /t REG_DWORD /d 0 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_execute /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_read /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_write /t REG_DWORD /d 0 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_execute /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_read /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_write /t REG_DWORD /d 0 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_execute /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_read /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_write /t REG_DWORD /d 0 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{6AC27878-A6FA-4155-BA85-F98F491D4F33}" /v deny_read /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{6AC27878-A6FA-4155-BA85-F98F491D4F33}" /v deny_write /t REG_DWORD /d 0 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{F33FDC04-D1AC-4E8E-9A30-19BBD4B108AE}" /v deny_read /t REG_DWORD /d 0 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{F33FDC04-D1AC-4E8E-9A30-19BBD4B108AE}" /v deny_write /t REG_DWORD /d 0 /f
+	
+	echo finished & pause
+	goto start
+
+
+::disable removableStorageDevices via registry [this requires admin elevation]
+:: *****************************************************************
+:disableusb
+echo disable usb [make sure youre running this as admin] & pause
+
+	reg add HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\USBSTOR /v start /t REG_DWORD /d 4 /f
+
+	reg add "HKLM\software\policies\microsoft\windows\removableStorageDevices" /v Deny_All /t REG_DWORD /d 1 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_execute /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_read /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56308-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_write /t REG_DWORD /d 1 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_execute /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_read /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630b-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_write /t REG_DWORD /d 1 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_execute /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_read /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f5630d-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_write /t REG_DWORD /d 1 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_execute /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_read /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{53f56311-b6bf-11d0-94f2-00a0c91efb8b}" /v deny_write /t REG_DWORD /d 1 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{6AC27878-A6FA-4155-BA85-F98F491D4F33}" /v deny_read /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{6AC27878-A6FA-4155-BA85-F98F491D4F33}" /v deny_write /t REG_DWORD /d 1 /f
+
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{F33FDC04-D1AC-4E8E-9A30-19BBD4B108AE}" /v deny_read /t REG_DWORD /d 1 /f
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices\{F33FDC04-D1AC-4E8E-9A30-19BBD4B108AE}" /v deny_write /t REG_DWORD /d 1 /f
+	
+	echo finished & pause
+	goto start
+
+
+
+:: *****************************************************************
+:: DELETE SYSTEM TEMP FILES [this requires admin elevation]
+:deltempfiles
+	call :print Deleting temporary files in Windows.
+	del /s /f /q "%TEMP%\*.*"
+	del /s /f /q "%SYSTEMROOT%\Temp\*.*"
+	echo:
+	echo deleted temp files!
+	pause
+	goto start
+
+
+
+:: *****************************************************************
+:: this should not require admin elevation
+:autostartupcurrentuser
+
+if not exist "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\tktool*.bat" copy %~dp0\tktool.bat "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
+
+	timeout /t 3
+
+	if exist "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\tktool*.bat" (
+		takeown /f "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\tktool*.bat"
+		attrib -r -s /s "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\tktool*.bat"
+		ren "C:\Users\%Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\tktool*.bat" tktool_%username%_%computername%_%random%.bat
+		%systemroot%\system32\msg.exe * /time:0 "tktool added to CURRENT user startup folder only"
+		echo done & pause & goto start )
+
+
+
+
+::*******************************************************************
+::[this requires admin elevation]
+:autostartupallusers
+
+	if not exist "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\tktool*.bat" copy %~dp0\tktool.bat "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
+
+	timeout /t 3
+
+	if exist "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\tktool*.bat" (
+		takeown /f "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\tktool*.bat"
+		attrib -r -s /s "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\tktool*.bat"
+		ren "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\tktool*.bat" tktool_%username%_%computername%_%random%.bat
+		%systemroot%\system32\msg.exe * /time:0 "tktool added to ALL USERS startup folder"
+		echo done & pause & goto start )
+
+
+:: restart printer spooler Service
+:spool
+echo Stopping the Printer Spooler Service.
+pause
+net stop Spooler
+timeout /t 15 /nobreak
+net start Spooler
+%systemroot%\system32\msg.exe * /time:0 "Printer Spooler Service restarted! Your printers should work now."
+echo:
+pause
+goto start
+
+
+::END
+:: *****************************************************************
+
+:: tk
+:: *****************************************************************
+
+::extra extra, what last woke up my pc?
+::powercfg -lastwake, powercfg -devicequery wake_armed
+:: use choice /?
