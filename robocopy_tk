@@ -13,7 +13,7 @@
 	
 	openfiles>nul 2>nul
 	:: the error level can be exploited to give you a do this if it works / do this if it fails functionality
-	if %errorlevel% == 0 echo Running as Admin! & ping 127.0.0.1 -n 2 > nul & goto start
+	if %errorlevel% == 0 echo Running as Admin! & ping 127.0.0.1 -n 3 > nul & goto start
 	if %errorlevel% neq 0 (
 	echo:
 	echo:
@@ -32,7 +32,7 @@
 	pause
 	)
 
-
+:start
 	::Window Title
 	title Mill ROBOCOPY 1.0 [RUN LOCALLY]
 	::hide the word echo in print commands
