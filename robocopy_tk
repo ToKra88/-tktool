@@ -1,11 +1,16 @@
 
 :: Checking if running as Administrator 
-:: *****************************************************************
-	:admincheck
-	::openfiles is just one function that requires admin privs, you can use another
+	
+
+:admincheck
+
 	@ECHO OFF
 	title Mill ROBOCOPY 1.0 [RUN LOCALLY]
 	mode con: cols=70 lines=20
+
+
+::openfiles is just one function that requires admin privs, you can use another
+	
 	openfiles>nul 2>nul
 	:: the error level can be exploited to give you a do this if it works / do this if it fails functionality
 	if %errorlevel% == 0 echo Running as Admin! & ping 127.0.0.1 -n 2 > nul & goto start
@@ -63,15 +68,13 @@
 	mode con: cols=150 lines=32766
 	robocopy "%SOURCE%" "%DESTINATION%" /s /e /is /it /r:1 /w:1 /v /x /j /eta /ts /unicode
 	pause
+	echo ___________________________________________________________________________
 	echo:
+	echo                                  DONE
 	echo:
-	echo _________________________________DONE_____________________________________
-	echo:
-	echo:
+	echo ___________________________________________________________________________
 	pause
-	echo __________________________GOING_BACK_TO_START_____________________________
+	echo:
+	echo __________________________GOING_BACK_TO_START______________________________
 	ping 127.0.0.1 -n 4 > nul
-
-
-
-goto admincheck
+	goto admincheck
