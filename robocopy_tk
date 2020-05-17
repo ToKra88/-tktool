@@ -4,8 +4,8 @@
 	:admincheck
 	::openfiles is just one function that requires admin privs, you can use another
 	@ECHO OFF
-	mode con: cols=70 lines=20
 	title Mill ROBOCOPY 1.0 [RUN LOCALLY]
+	mode con: cols=70 lines=20
 	openfiles>nul 2>nul
 	:: the error level can be exploited to give you a do this if it works / do this if it fails functionality
 	if %errorlevel% == 0 echo Running as Admin! & ping 127.0.0.1 -n 2 > nul & goto start
