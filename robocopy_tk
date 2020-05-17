@@ -1,9 +1,8 @@
 
 :: Checking if running as Administrator 
-
-:admincheck
-
-::openfiles is just one function that requires admin privs, you can use another
+:: *****************************************************************
+	:admincheck
+	::openfiles is just one function that requires admin privs, you can use another
 	@ECHO OFF
 	mode con: cols=70 lines=20
 	title Mill ROBOCOPY 1.0 [RUN LOCALLY]
@@ -26,11 +25,10 @@
 	echo:
 	echo:
 	pause
-	goto :start 
 	)
 
 
-::Window Title
+	::Window Title
 	title Mill ROBOCOPY 1.0 [RUN LOCALLY]
 	::hide the word echo in print commands
 	@echo off
