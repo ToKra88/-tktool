@@ -1,0 +1,79 @@
+
+:: Checking if running as Administrator 
+
+:admincheck
+
+::openfiles is just one function that requires admin privs, you can use another
+	@ECHO OFF
+	mode con: cols=70 lines=20
+	title Mill ROBOCOPY 1.0 [RUN LOCALLY]
+	openfiles>nul 2>nul
+	:: the error level can be exploited to give you a do this if it works / do this if it fails functionality
+	if %errorlevel% == 0 echo Running as Admin! & ping 127.0.0.1 -n 2 > nul & goto start
+	if %errorlevel% neq 0 (
+	echo:
+	echo:
+	echo note: Checking for Administrator elevation.
+	echo:
+	echo:
+	echo ______________________________________________________
+	echo:
+	echo    note: You are not running this as an Administrator.
+	echo    You may not have access to copy to destination.
+	echo:
+	echo ______________________________________________________
+	echo:
+	echo:
+	echo:
+	pause
+	goto :start 
+	)
+
+
+::Window Title
+	title Mill ROBOCOPY 1.0 [RUN LOCALLY]
+	::hide the word echo in print commands
+	@echo off
+	::set window size
+	mode con: cols=150 lines=20
+
+
+::set the source
+	echo Running as %username% on %computername% at %date% %time%
+	echo:
+	echo:
+	set /p SOURCE=Type or paste full path of what you want to copy: 
+	echo ===========================================================================
+	echo SOURCE set to %SOURCE%
+	echo:
+	pause
+
+::set the destination
+	echo ___________________________________________________________________________
+	echo:
+	echo:
+	set /p DESTINATION=Type or paste full path of where you want to copy to: 
+	echo ===========================================================================
+	echo DESTINATION set to: %DESTINATION%
+	echo:
+	pause
+
+
+
+::copy source folder and contents to destination
+	echo STARTING ROBOCOPY
+	mode con: cols=150 lines=32766
+	robocopy "%SOURCE%" "%DESTINATION%" /s /e /is /it /r:1 /w:1 /v /x /j /eta /ts /unicode
+	pause
+	echo:
+	echo:
+	echo _________________________________DONE_____________________________________
+	echo:
+	echo:
+	pause
+	echo __________________________GOING_BACK_TO_START_____________________________
+	ping 127.0.0.1 -n 4 > nul
+
+
+
+goto admincheck
