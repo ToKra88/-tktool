@@ -1,0 +1,215 @@
+@ECHO off
+ 
+:: Checking if running as Administrator
+::--------------------------------------------------------------------------------------------
+    :admincheck
+    echo Running as %username% on %computername% at %time%
+    openfiles>nul 2>nul
+    if %errorlevel% == 0 echo ______________________________________________________ & echo Running as Admin! & echo ______________________________________________________ & ping 127.0.0.1 -n 3 > nul & goto CHOICE
+    if %errorlevel% neq 0 (
+    echo:
+    echo note: Checking for Administrator elevation.
+    ping 127.0.0.1 -n 1 > nul
+    echo:
+    echo ______________________________________________________
+    ping 127.0.0.1 -n 1 > nul
+    echo:
+    ping 127.0.0.1 -n 1 > nul
+    echo    You are not running this as an Administrator.
+    ping 127.0.0.1 -n 1 > nul
+    echo    This tool cannot work successfully. . .
+    echo:
+    ping 127.0.0.1 -n 1 > nul
+    echo ______________________________________________________
+    echo:
+    pause
+    echo:
+    )
+::--------------------------------------------------------------------------------------------
+:CHOICE
+cls
+echo Running as %username% on %computername% at %time%
+echo:
+echo QUERY ANY WINDOWS PC for Hostname, OS Version, Serial Code, NICs, Storage, GPU, CPU, RAM
+echo:
+    echo ___Make_a_Choice______________________________________
+echo:
+set /p OPTION=Type 1 for Manual Mode or 2 for Iterative Mode:
+echo:
+::--------------------------------------------------------------------------------------------
+if %OPTION%==1 goto STARTMANUAL
+ping 127.0.0.1 -n 2 > nul
+if %OPTION%==2 goto STARTITERATION
+ping 127.0.0.1 -n 2 > nul
+ 
+::-------------------------------------------
+:STARTMANUAL
+set /p MANUALENTRY=Enter exact hostname or IP address:
+  
+goto MANUALLOOP
+ 
+:MANUALLOOP
+ 
+echo ##############################################################################################
+echo    pulling data from:                    %MANUALENTRY%
+echo ##############################################################################################
+echo:
+ 
+@echo off
+ping -n 2 %MANUALENTRY% | find "unreachable" > nul
+if %errorlevel% == 0 (
+    echo                                     %MANUALENTRY% is OFFLINE & timeout /t 2 & echo: & pause & goto CHOICE
+)
+ping -n 2 %PREFIX%-%NUM%%COUNTER%-%SITE% | find "again" > nul
+if %errorlevel% == 0 (
+    echo                                     %MANUALENTRY% is OFFLINE & timeout /t 2 & echo: & goto INCREMENTCOUNTER
+)
+ping -n 2 %MANUALENTRY% | find "Reply" > nul
+if %errorlevel% == 0 (
+echo                                     %MANUALENTRY% is ONLINE & echo:
+)
+ 
+::HOSTNAME
+echo ___HOSTNAME___________________________________________________________________________________
+wmic /node:"%MANUALENTRY%" path win32_VideoController get systemname
+wmic /node:"%MANUALENTRY%" get AccountOU="OU=Workstations;DC=ExampleDomain;DC=com"
+ 
+::USERS
+echo ___LOGGED_IN_USERS____________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" ComputerSystem Get UserName
+ 
+::WIN VERSION
+echo ___WIN_VERSION________________________________________________________________________________
+wmic /node:"%MANUALENTRY%" OS get Caption,OSArchitecture,Version
+  
+::VENDOR INFO and SERIAL NUMBER
+echo ___MODEL_AND_SERIAL___________________________________________________________________________
+wmic /node:"%MANUALENTRY%" csproduct get name,vendor,identifyingnumber
+  
+::NIC INFO
+echo ___ETHERNET_ADAPTOR___________________________________________________________________________
+wmic /node:"%MANUALENTRY%" nicconfig get IPAddress,IPSubnet,Description,MACAddress
+  
+::HDD INFO
+echo ___STORAGE____________________________________________________________________________________
+wmic /node:"%MANUALENTRY%" logicaldisk get caption,description,drivetype,volumename,size,freespace,filesystem
+  
+::GPU INFO
+echo ___GPU________________________________________________________________________________________
+wmic /node:"%MANUALENTRY%" path win32_VideoController get name,driverversion,videomodedescription,currentrefreshrate
+  
+::CPU INFO
+echo ___CPU________________________________________________________________________________________
+wmic /node:"%MANUALENTRY%" CPU get DeviceID,Name,NumberOfCores,NumberOfLogicalProcessors
+  
+::RAM INFO
+echo ___RAM________________________________________________________________________________________
+systeminfo /s "%MANUALENTRY%" | findstr "Total Physical Memory" & echo:
+ 
+::INSTALLED SOFTWARE
+echo ___INSTALLED_SOFTWARE_________________________________________________________________________
+wmic /node:"%MANUALENTRY%" product get name,version,vendor & timeout /t 3
+ 
+ 
+pause
+ 
+goto CHOICE
+ 
+ 
+::-------------------------------------------
+:STARTITERATION
+echo Currently this only works for this naming convention: department-number-site i.e. dept-06-ldn
+echo London: ldn, New York: ny, Chicago: chi, Germany: ger
+set /p PREFIX=Enter dept, i.e. Paint, Matte or Design:
+set /p COUNTER=Starting Value:
+set /p MAX=END Value:
+set /p SITE=Location - ldn, ny, chi, blr, ger:
+ 
+goto LOOP
+ 
+::--------------------------------------------------------------------------------------------
+  
+:LOOP
+  
+if %COUNTER% GTR 9 (
+    set NUM=
+    ) else (
+    set NUM=0
+    )
+  
+echo Iteration %COUNTER% of %MAX%
+echo ##############################################################################################
+echo    pulling data from:                    %PREFIX%-%NUM%%COUNTER%-%SITE%
+echo ##############################################################################################
+echo:
+ 
+@echo off
+ping -n 2 %PREFIX%-%NUM%%COUNTER%-%SITE% | find "unreachable" > nul
+if %errorlevel% == 0 (
+    echo                                     %PREFIX%-%NUM%%COUNTER%-%SITE% is OFFLINE & timeout /t 2 & echo: & goto INCREMENTCOUNTER
+)
+ping -n 2 %PREFIX%-%NUM%%COUNTER%-%SITE% | find "again" > nul
+if %errorlevel% == 0 (
+    echo                                     %PREFIX%-%NUM%%COUNTER%-%SITE% is OFFLINE & timeout /t 2 & echo: & goto INCREMENTCOUNTER
+)
+ping -n 2 %PREFIX%-%NUM%%COUNTER%-%SITE% | find "Reply" > nul
+if %errorlevel% == 0 (
+echo                                     %PREFIX%-%NUM%%COUNTER%-%SITE% is ONLINE & echo:
+)
+ 
+::HOSTNAME
+echo ___HOSTNAME___________________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" path win32_VideoController get systemname
+ 
+::USERS
+echo ___LOGGED_IN_USERS____________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" ComputerSystem Get UserName
+ 
+::WIN VERSION
+echo ___WIN_VERSION________________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" OS get Caption,OSArchitecture,Version
+  
+::VENDOR INFO and SERIAL NUMBER
+echo ___MODEL_AND_SERIAL___________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" csproduct get name,vendor,identifyingnumber
+  
+::NIC INFO
+echo ___ETHERNET_ADAPTOR___________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" nicconfig get IPAddress,IPSubnet,Description,MACAddress
+  
+::HDD INFO
+echo ___STORAGE____________________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" logicaldisk get caption,description,drivetype,volumename,size,freespace,filesystem
+  
+::GPU INFO
+echo ___GPU________________________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" path win32_VideoController get name,driverversion,videomodedescription,currentrefreshrate
+  
+::CPU INFO
+echo ___CPU________________________________________________________________________________________
+wmic /node:"%PREFIX%-%NUM%%COUNTER%-%SITE%" CPU get DeviceID,Name,NumberOfCores,NumberOfLogicalProcessors
+  
+::RAM INFO
+echo ___RAM________________________________________________________________________________________
+systeminfo /s "%PREFIX%-%NUM%%COUNTER%-%SITE%" | findstr "Total Physical Memory" & timeout /t 3
+  
+:INCREMENTCOUNTER
+::INCREMENT COUNTER
+set /A COUNTER=COUNTER+1
+  
+::CONDITION
+if %COUNTER% GTR %MAX% (
+    echo:
+    echo:
+    echo:
+    echo ##############################################################################################
+    echo ___________________________________________D_O_N_E____________________________________________
+    echo:
+    echo ############################################################################################## & echo: & echo: & pause
+    ) else (
+    goto LOOP
+    )
+ 
+pause
+ 
+goto CHOICE
