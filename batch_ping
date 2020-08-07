@@ -1,0 +1,30 @@
+:start
+@echo off
+echo ===========================================================
+echo pinging Google DNS 1
+if %errorlevel%==0 (
+	color 0a & ping 8.8.8.8 & ping 127.0.0.1 -n 3 > nul
+	) else ( 
+	color 0c & ping 8.8.8.8 & ping 127.0.0.1 -n 3 > nul
+	)
+goto middle
+
+
+:middle
+@echo off
+echo:
+echo:
+echo ===========================================================
+echo pinging Google DNS 2
+if %errorlevel%==0 (
+	color 0a & ping 8.8.4.4 & ping 127.0.0.1 -n 3 > nul
+	) else ( 
+	color 0c & ping 8.8.4.4 & ping 127.0.0.1 -n 3 > nul
+	)
+echo:
+echo:
+goto end
+
+
+:end
+goto start
